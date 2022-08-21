@@ -14,13 +14,13 @@ function flatten<T>(items: T) {
 
     if (isArray) {
       if (Array.isArray(item)) {
-        (output as Array<T>).push(...flatten(item));
+        (output as unknown[]).push(...(flatten(item) as unknown[]));
       } else {
-        (output as Array<T>).push(flatten(item));
+        (output as unknown[]).push(flatten(item) as unknown);
       }
     } else {
       if (isPrimitive(item) || Array.isArray(item)) {
-        output[key] = flatten(item);
+        (output as { [key: string]: unknown })[key] = flatten(item);
       } else {
         output = { ...output, ...flatten(item) };
       }
