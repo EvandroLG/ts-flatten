@@ -1,7 +1,7 @@
 import { isPrimitive } from './utils';
 
 function flatten<T>(items: T) {
-  if (isPrimitive(items)) {
+  if (isPrimitive(items) || typeof items === 'function') {
     return items;
   }
 

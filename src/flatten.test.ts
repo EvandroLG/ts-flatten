@@ -1,19 +1,29 @@
 import flatten from './flatten';
 
 describe('flatten', () => {
-  it('should not change primitive values', () => {
+  it('should not change primitive values and function', () => {
     expect(flatten(true)).toBeTruthy();
     expect(flatten(false)).toBeFalsy();
     expect(flatten(123)).toBe(123);
     expect(flatten('s')).toBe('s');
     expect(flatten(null)).toBeNull();
     expect(flatten(undefined)).toBeUndefined();
+    const fn = () => {};
+    expect(flatten(fn)).toBe(fn);
   });
 
   it('should flatten arrays', () => {
+    const fn = () => {};
+
     expect(flatten([1, 2, 3])).toEqual([1, 2, 3]);
-    expect(flatten([1, [2, [3, [4, [5]]]]])).toEqual([1, 2, 3, 4, 5]);
-    expect(flatten([1, ['a', null], true])).toEqual([1, 'a', null, true]);
+    expect(flatten([1, [2, [3, [4, [5], fn]]]])).toEqual([1, 2, 3, 4, 5, fn]);
+    expect(flatten([1, ['a', null, fn], true])).toEqual([
+      1,
+      'a',
+      null,
+      fn,
+      true,
+    ]);
     expect(flatten([[], [undefined, ['a', 4]], false])).toEqual([
       undefined,
       'a',
