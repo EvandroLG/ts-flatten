@@ -9,6 +9,14 @@ function flatten(items: unknown) {
     return flatArray(items);
   }
 
+  if (items instanceof Set) {
+    return new Set(items);
+  }
+
+  if (items instanceof Map) {
+    return flatMap(items);
+  }
+
   return flatObject(items as { [key: string]: unknown });
 }
 
@@ -30,6 +38,16 @@ function flatObject(items: { [key: string]: unknown }) {
 
     return acc;
   }, {});
+}
+
+function flatMap(items) {
+  const map = new Map();
+
+  for (const [key, value] of items) {
+    map.set(flatten(key), flatten(value));
+  }
+
+  return map;
 }
 
 export default flatten;

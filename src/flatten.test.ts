@@ -37,6 +37,35 @@ describe('flatten', () => {
     expect(flatten({ a: 1, b: { c: 3 }, d: 4 })).toEqual({ a: 1, c: 3, d: 4 });
   });
 
+  it('should flatten set', () => {
+    const param = new Set([1, 2, 3, 'a', null, undefined, []]);
+    const result = flatten(param);
+
+    expect(result).toEqual(param);
+    expect(result === param).toBeFalsy();
+  });
+
+  it('should flatten map', () => {
+    const param = new Map<any, any>([
+      ['a', 1],
+      ['b', null],
+      ['c', { a: 1, b: 2 }],
+      [[1, 2, 3, 4], new Set()],
+    ]);
+    const result = flatten(param);
+    expect(result).toEqual(param);
+    expect(result === param).toBeFalsy();
+    expect(result.get('c')).toEqual(param.get('c'));
+    expect(result.get('c') === param.get('c')).toBeFalsy();
+    expect(Array.from(result.keys()).at(-1)).toEqual(
+      Array.from(param.keys()).at(-1)
+    );
+
+    expect(
+      Array.from(result.keys()).at(-1) === Array.from(param.keys()).at(-1)
+    ).toBeFalsy();
+  });
+
   it('should flatten nested arrays and objects', () => {
     expect(
       flatten([undefined, null, true, null, { a: { b: null, c: 1 } }])
