@@ -1,9 +1,14 @@
 {
+  "include": ["src", "types"],
+  "exclude": ["node_modules", "dist", "src/*.test.ts"],
   "compilerOptions": {
     "target": "es2016",
-    "module": "commonjs",
+    "module": "es2020",
+    "outDir": "dist",
     "esModuleInterop": true,
+    "importHelpers": true,
     "forceConsistentCasingInFileNames": true,
+    "sourceMap": true,
     "strict": false,
     "skipLibCheck": true
   }
