@@ -1,5 +1,10 @@
 import { isPrimitive } from './utils';
 
+/*
+ * Receives any type of value and returns a flatted version of that value
+ * @param {unknown} items
+ * @returns {unknown}
+ */
 function flatten(items: unknown) {
   if (
     isPrimitive(items) ||
