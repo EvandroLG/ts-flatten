@@ -1,7 +1,11 @@
 import { isPrimitive } from './utils';
 
 function flatten(items: unknown) {
-  if (isPrimitive(items) || typeof items === 'function') {
+  if (
+    isPrimitive(items) ||
+    typeof items === 'function' ||
+    typeof items === 'symbol'
+  ) {
     return items;
   }
 
