@@ -49,7 +49,7 @@ function flatObject(items: { [key: string]: unknown }) {
   }, {});
 }
 
-function flatMap(items) {
+function flatMap(items: Map<unknown, unknown>) {
   const map = new Map();
 
   for (const [key, value] of items) {
